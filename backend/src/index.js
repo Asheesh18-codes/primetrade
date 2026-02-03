@@ -3,6 +3,7 @@ const express=require("express")
 const app=express()
 const routes=require("./routes")
 const errorHandler=require("./middlewares/errorHandler")
+const swagger=require("./swagger")
 
 app.use((req,res,next)=>{
   res.header("Access-Control-Allow-Origin","*")
@@ -13,6 +14,7 @@ app.use((req,res,next)=>{
 })
 
 app.use(express.json())
+swagger(app)
 app.use("/api/v1",routes)
 app.use((req,res)=>res.status(404).json({error:"Not found"}))
 app.use(errorHandler)
